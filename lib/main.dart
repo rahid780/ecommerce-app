@@ -1,0 +1,41 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_provider/cart_provider.dart';
+import 'package:firebase_provider/main_screens/home_page.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: 'AIzaSyAGEimL56Kip1RknYkZQHTfgcis_dZ_zJw',
+        appId: '1:297768110531:web:6bd4579757f705391ed576',
+        messagingSenderId: '297768110531',
+        projectId: 'fir-provider-293f2'),
+  );
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CartProvider>(
+          create: (_) => CartProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Firebase Provider',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+          useMaterial3: true,
+        ),
+        home: const HomePage(),
+      ),
+    );
+  }
+}
