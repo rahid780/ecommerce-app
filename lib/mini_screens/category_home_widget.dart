@@ -78,7 +78,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: const CircularProgressIndicator());
+                  return const Center(child:  CircularProgressIndicator());
                 }
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');

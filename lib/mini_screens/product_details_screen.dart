@@ -17,7 +17,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         leading: IconButton(onPressed: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
         },
         icon: const Icon(Icons.arrow_back),
         ),

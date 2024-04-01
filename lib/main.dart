@@ -13,11 +13,11 @@ void main() async {
         messagingSenderId: '297768110531',
         projectId: 'fir-provider-293f2'),
   );
-  runApp(MyApp());
+  runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+ const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

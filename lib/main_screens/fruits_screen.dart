@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_provider/main_screens/home_page.dart';
 import 'package:firebase_provider/product_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 class FruitsScreen extends StatefulWidget {
   const FruitsScreen({super.key});
 
@@ -51,7 +49,7 @@ class _FruitsScreenState extends State<FruitsScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
-                        child: const CircularProgressIndicator());
+                        child: CircularProgressIndicator());
                     }
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
