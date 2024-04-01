@@ -1,8 +1,10 @@
 import 'package:firebase_provider/cart_provider.dart';
+import 'package:firebase_provider/main_screens/categories_screen.dart';
 import 'package:firebase_provider/mini_screens/cart_screen.dart';
 import 'package:firebase_provider/mini_screens/category_home_widget.dart';
 import 'package:firebase_provider/main_screens/electronics_screen.dart';
 import 'package:firebase_provider/main_screens/fruits_screen.dart';
+import 'package:firebase_provider/mini_screens/home_main_categories.dart';
 import 'package:firebase_provider/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
@@ -51,13 +53,31 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: const  SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CategoryWidget(category: 'Fruits', headline: 'Fresh and fast delivery', nextScreen: FruitsScreen(),),
-              SizedBox(height: 10,),
-              CategoryWidget(category: 'Electronics', headline: 'Original and branded', nextScreen: ElectronicsScreen(),),
+              MainCategories(
+                nextScreen: CategoriesScreen(),
+                category: 'Categories',
+                headline: 'Choose for your best life.',
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CategoryWidget(
+                category: 'Fruits',
+                headline: 'Fresh and fast delivery',
+                nextScreen: FruitsScreen(),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CategoryWidget(
+                category: 'Electronics',
+                headline: 'Original and branded',
+                nextScreen: ElectronicsScreen(),
+              ),
             ],
           ),
         ));
