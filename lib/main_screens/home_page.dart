@@ -6,6 +6,7 @@ import 'package:firebase_provider/main_screens/electronics_screen.dart';
 import 'package:firebase_provider/main_screens/fruits_screen.dart';
 import 'package:firebase_provider/mini_screens/home_main_categories.dart';
 import 'package:firebase_provider/product_model.dart';
+import 'package:firebase_provider/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
@@ -53,10 +54,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: const SingleChildScrollView(
+        body:  const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              MySearchBar(),
+              SizedBox(
+                height: 10,
+              ),
               MainCategories(
                 nextScreen: CategoriesScreen(),
                 category: 'Categories',
@@ -83,3 +88,4 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
+
