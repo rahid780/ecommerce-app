@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_provider/main_screens/home_page.dart';
-import 'package:firebase_provider/product_item.dart';
+import 'package:firebase_provider/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
 class ElectronicsScreen extends StatefulWidget {

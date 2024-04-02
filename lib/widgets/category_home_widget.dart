@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_provider/product_item.dart';
+import 'package:firebase_provider/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
 class CategoryWidget extends StatefulWidget {

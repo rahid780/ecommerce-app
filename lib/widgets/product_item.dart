@@ -1,5 +1,5 @@
 
-import 'package:firebase_provider/cart_provider.dart';
+import 'package:firebase_provider/providers/cart_provider.dart';
 import 'package:firebase_provider/mini_screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

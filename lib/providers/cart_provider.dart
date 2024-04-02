@@ -1,5 +1,5 @@
 
-import 'package:firebase_provider/product_model.dart';
+import 'package:firebase_provider/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class CartProvider extends ChangeNotifier{

@@ -1,11 +1,11 @@
-import 'package:firebase_provider/cart_provider.dart';
+import 'package:firebase_provider/providers/cart_provider.dart';
 import 'package:firebase_provider/main_screens/categories_screen.dart';
 import 'package:firebase_provider/mini_screens/cart_screen.dart';
-import 'package:firebase_provider/mini_screens/category_home_widget.dart';
+import 'package:firebase_provider/widgets/category_home_widget.dart';
 import 'package:firebase_provider/main_screens/electronics_screen.dart';
 import 'package:firebase_provider/main_screens/fruits_screen.dart';
-import 'package:firebase_provider/mini_screens/home_main_categories.dart';
-import 'package:firebase_provider/product_model.dart';
+import 'package:firebase_provider/widgets/home_main_categories.dart';
+import 'package:firebase_provider/models/product_model.dart';
 import 'package:firebase_provider/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;

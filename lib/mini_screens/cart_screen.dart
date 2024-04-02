@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:firebase_provider/cart_provider.dart';
+import 'package:firebase_provider/providers/cart_provider.dart';
 import 'package:firebase_provider/main_screens/home_page.dart';
-import 'package:firebase_provider/product_model.dart';
+import 'package:firebase_provider/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
