@@ -39,6 +39,9 @@ dependencies:
   cloud_firestore: ^4.15.10
   firebase_core: ^2.27.2
   badges: ^3.1.2
+  carousel_slider: ^4.2.1
+  dots_indicator: ^3.0.0
+  curved_navigation_bar: ^1.0.3
   
 
 dev_dependencies:
