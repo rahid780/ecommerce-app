@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CartProvider extends ChangeNotifier{
 
- static List<Product> _cartList = [];
+ static final List<Product> _cartList = [];
 
   List<Product> get cartList {
     return _cartList;
@@ -47,6 +47,10 @@ class CartProvider extends ChangeNotifier{
     return product.increaseQuantity();
   }
 
+ void removeItem(Product product) async {
+   _cartList.remove(product);
+   notifyListeners();
+ }
 
   void removeFromCart(String id) {
     _cartList.removeWhere((element) => element.id == id);

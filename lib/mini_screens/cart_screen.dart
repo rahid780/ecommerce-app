@@ -47,32 +47,49 @@ class _CartScreenState extends State<CartScreen> {
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20),),
                     child: Image.network(e.image, width: 100,fit: BoxFit.cover,)),
                   const SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(e.name, style:const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                      Text('PKR ${e.price.toString()}', style:const TextStyle(fontSize: 14, fontStyle: FontStyle.italic),),
-                    ]),
+                  SizedBox(
+                    width: 80,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(e.name, style:const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis,),
+                        Text('PKR ${e.price.toString()}', style:const TextStyle(fontSize: 14, fontStyle: FontStyle.italic),),
+                      ]),
+                  ),
               
                     const SizedBox(width: 10),
-                    TextButton(onPressed: (){
-                      setState(() {
-                        context.read<CartProvider>().decreaseByOne(e);
-                      });
-                    }, child: const Text('--', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900, color: Colors.black),),),
-                          Text(e.qty.toString(),),
-                          TextButton(onPressed: (){
-                            setState(() {
-                              context.read<CartProvider>().increaseByOne(e);
-                            });
-                          }, child: const Text('+', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900, color: Colors.black),),),
-              
-              
-                          const SizedBox(width: 10),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center ,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            context.read<CartProvider>().decreaseByOne(e);
+                          });
+                        },
+                        icon: const Icon(Icons.remove),
+                      ),
+                      Text(
+                        e.qty.toString(),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            context.read<CartProvider>().increaseByOne(e);
+                          });
+                        },
+                        icon: const Icon(Icons.add),
+                      ),
+                    ],
+                  ),
+
+
+
+                  const SizedBox(width: 10),
                           IconButton(onPressed: (){
                             setState(() {
-                              context.read<CartProvider>().removeFromCart(e.id);
+                              context.read<CartProvider>().removeItem(e);
                             });
                           }, icon: const Icon(Icons.delete),),
                 ],

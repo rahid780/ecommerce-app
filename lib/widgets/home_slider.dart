@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class MyHomeSliderWidget extends StatefulWidget {
-  const MyHomeSliderWidget({Key? key});
+  const MyHomeSliderWidget({super.key,});
 
   @override
   State<MyHomeSliderWidget> createState() => _MyHomeSliderWidgetState();

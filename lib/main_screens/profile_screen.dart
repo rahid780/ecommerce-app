@@ -15,9 +15,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return  Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
         },
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         ),
       ),
     );

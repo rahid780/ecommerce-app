@@ -3,6 +3,7 @@ import 'package:firebase_provider/providers/cart_provider.dart';
 import 'package:firebase_provider/mini_screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class ProductItem extends StatelessWidget {
   final dynamic productData;
@@ -31,27 +32,27 @@ class ProductItem extends StatelessWidget {
           ],
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: GestureDetector(
-                onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen( productDetails: productData,) ));
-              },
-                child: Image.network(
-                  productData['image'],
-                  fit: BoxFit.cover,
-                  width: 60,
-                  height: 60,
+            SizedBox(
+              width: 80,
+              height: 70,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: GestureDetector(
+                  onTap: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen( productDetails: productData,) ));
+                },
+                  child: Image(image: NetworkImage(productData['image'],), fit: BoxFit.cover,)
                 ),
               ),
             ),
-            const SizedBox(height: 8),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
                       width: 60,
@@ -67,23 +68,28 @@ class ProductItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(width: 8),
+                //const SizedBox(width: 8),
                 context.watch<CartProvider>().cartList.any((element) => element.id == productData['id'])
-                    ? Image.asset('assets/icons/cart.png', width: 20, height: 20,): IconButton(
-                        onPressed: () {
-                          context.read<CartProvider>().addToCart(
-                                productData['name'],
-                                productData['price'],
-                                productData['image'],
-                                productData['description'],
-                                productData['id'],
-                                productData['category'],
-                                productData['quantity'],
-                                productData['qty'],
-                              );
-                        },
-                        icon: const Icon(Icons.add_shopping_cart, size: 20,),
-                      ),
+                    ? badges.Badge(
+                  badgeContent: const Icon(Icons.done_all, size: 10),
+                  position: badges.BadgePosition.topStart(top: -5, start: 5), // Adjust the position of the badge
+                  child: const Icon(Icons.add_shopping_cart, color: Colors.black, size: 20),
+                )
+                    : GestureDetector(
+                    onTap: (){
+                      context.read<CartProvider>().addToCart(
+                        productData['name'],
+                        productData['price'],
+                        productData['image'],
+                        productData['description'],
+                        productData['id'],
+                        productData['category'],
+                        productData['quantity'],
+                        productData['qty'],
+                      );
+                    },
+                      child: const Icon(Icons.add_shopping_cart, size: 20)),
+
               ],
             ),
           ],
