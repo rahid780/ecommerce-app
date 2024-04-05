@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:firebase_provider/main_screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic productDetails;
@@ -13,6 +16,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -24,8 +28,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
         title: SizedBox(width: 200, child: Text(widget.productDetails['name'])),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 50.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -36,6 +41,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   height: MediaQuery.of(context).size.height * 0.5,
                   color: Colors.white,
                   child: Card(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.zero, 
+                    ),
                     color: Colors.white,
                     elevation: 5,
                     child: Image(
@@ -61,6 +70,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Card(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.zero, 
+                  ),
                   color: Colors.white,
                   elevation: 2,
                   child: Column(
@@ -87,88 +100,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Rs. ',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.orange),
-                                          ),
-                                          Text(
-                                            (widget.productDetails['price'] / 3)
-                                                .toStringAsFixed(0),
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.orange),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            'Rs. ${widget.productDetails['price']}',
-                                            style: const TextStyle(
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                fontSize: 12,
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey),
-                                          ),
-                                          const SizedBox(
-                                            width: 3,
-                                          ),
-                                          Text(
-                                            (((widget.productDetails['price'] /
-                                                            3) /
-                                                        (widget.productDetails[
-                                                            'price']) *
-                                                        100) -
-                                                    100)
-                                                .toStringAsFixed(0),
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey),
-                                          ),
-                                          const Text(
-                                            '%',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            '122 Sold',
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey),
-                                          ),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.share,
-                                                color: Colors.black,
-                                                size: 15,
-                                              ))
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                  PriceRowWidget(widget: widget),
                                 ],
                               ),
                             ),
@@ -190,9 +122,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Text(
                               widget.productDetails['description'],
                               style: const TextStyle(
-                                  fontSize: 14, color: Colors.black),
+                                  fontSize: 14,
+                                  color: Colors.black),
                               maxLines: 14,
                               overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(
+                              height: 10,
                             ),
                           ],
                         ),
@@ -200,7 +136,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ],
                   ),
                 ),
-              )
+              ),
+              RatingsAndReviewsWidget(),
             ],
           ),
         ),
@@ -267,6 +204,289 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   )))
         ],
       ),
+    );
+  }
+}
+
+class RatingsAndReviewsWidget extends StatefulWidget {
+  const RatingsAndReviewsWidget({
+    super.key,
+  });
+
+  @override
+  State<RatingsAndReviewsWidget> createState() =>
+      _RatingsAndReviewsWidgetState();
+}
+
+class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
+  List<String> poepleLoves = ['Love Design', 'Product', 'Color', 'Size', 'Best Quality','Excelent Product'];
+  double rating = 4.5;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero, 
+        ),
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Rating & Reviews',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(children: [
+                Text(
+                  rating.toString(),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+                ),
+                RatingBar.builder(
+                  initialRating: rating.toDouble(),
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 24,
+                  ignoreGestures: true,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    setState(() {
+                      rating = rating;
+                    });
+                  },
+                ),
+                rating > 4.0
+                    ? Image.asset(
+                        'assets/icons/top_rated.png',
+                        width: 35,
+                        height: 35,
+                      )
+                    : const SizedBox()
+              ]),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(children: [
+                          Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey,
+                            size: 12,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Photos(23)',
+                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                          )
+                        ]),
+                        Icon(
+                          Icons.keyboard_arrow_right_outlined,
+                          color: Colors.grey,
+                          size: 16,
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'View All(23)',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_right_outlined,
+                          color: Colors.grey,
+                          size: 16,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text('What poeple like about it',
+                  style: TextStyle(color: Colors.black, fontSize: 16)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 40,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: poepleLoves.length,
+                    itemBuilder: (context, index) {
+                      return Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 4.0),
+                              child: Text(
+                                '${poepleLoves[index]}(${Random().nextInt(150)})',
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 14),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          )
+                        ],
+                      );
+                    }),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PriceRowWidget extends StatelessWidget {
+  const PriceRowWidget({
+    super.key,
+    required this.widget,
+  });
+
+  final ProductDetailsScreen widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            const Text(
+              'Rs. ',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange),
+            ),
+            Text(
+              (widget.productDetails['price'] / 3).toStringAsFixed(0),
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Rs. ${widget.productDetails['price']}',
+              style: const TextStyle(
+                  decoration: TextDecoration.lineThrough,
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
+            const SizedBox(
+              width: 3,
+            ),
+            Text(
+              (((widget.productDetails['price'] / 3) /
+                          (widget.productDetails['price']) *
+                          100) -
+                      100)
+                  .toStringAsFixed(0),
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
+            const Text(
+              '%',
+              style: TextStyle(
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Text(
+              '122 Sold',
+              style: TextStyle(
+                  fontSize: 10,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.share,
+                  color: Colors.black,
+                  size: 15,
+                ))
+          ],
+        ),
+      ],
     );
   }
 }
