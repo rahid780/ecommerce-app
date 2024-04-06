@@ -42,8 +42,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   color: Colors.white,
                   child: Card(
                     shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.zero, 
+                      borderRadius: BorderRadius.zero,
                     ),
                     color: Colors.white,
                     elevation: 5,
@@ -71,8 +70,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: Card(
                   shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.zero, 
+                    borderRadius: BorderRadius.zero,
                   ),
                   color: Colors.white,
                   elevation: 2,
@@ -122,8 +120,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Text(
                               widget.productDetails['description'],
                               style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black),
+                                  fontSize: 14, color: Colors.black),
                               maxLines: 14,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -219,7 +216,14 @@ class RatingsAndReviewsWidget extends StatefulWidget {
 }
 
 class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
-  List<String> poepleLoves = ['Love Design', 'Product', 'Color', 'Size', 'Best Quality','Excelent Product'];
+  List<String> poepleLoves = [
+    'Love Design',
+    'Product',
+    'Color',
+    'Size',
+    'Best Quality',
+    'Excelent Product'
+  ];
   double rating = 4.5;
 
   @override
@@ -227,7 +231,7 @@ class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
     return SizedBox(
       child: Card(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero, 
+          borderRadius: BorderRadius.zero,
         ),
         color: Colors.white,
         child: Padding(
@@ -373,7 +377,7 @@ class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
                               child: Text(
                                 '${poepleLoves[index]}(${Random().nextInt(150)})',
                                 style: const TextStyle(
-                                    color: Colors.grey, fontSize: 14),
+                                    color: Colors.black87, fontSize: 14),
                               ),
                             ),
                           ),
@@ -393,10 +397,133 @@ class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
               const SizedBox(
                 height: 10,
               ),
+              const ReviewsItem(),
+             const Padding(
+                padding:  EdgeInsets.symmetric(vertical: 8.0),
+                child: Divider(),
+              ),
+              const ReviewsItem(),
+              const ReviewsItem(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class ReviewsItem extends StatelessWidget {
+  const ReviewsItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> getReviewImages = [
+      'assets/images/img1.jpg',
+      'assets/images/img2.png',
+      'assets/images/img3.jpg',
+      'assets/images/img1.jpg',
+      'assets/images/img2.png',
+      'assets/images/img3.jpg',
+    ];
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                RatingBar.builder(
+                  initialRating: 2,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 15,
+                  ignoreGestures: true,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {},
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                const Text(
+                  'Farzan',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            const Text('5 months ago',
+                style: TextStyle(color: Colors.black38, fontSize: 14))
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        const Text(
+          'Very good quality same jesa dekhaya tha wahi cheese bejhe hai very very pretty mujhe dar tha k size may chota na ho par abohat acha hai.',
+          style: TextStyle(color: Colors.black87, fontSize: 15),
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 80,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: getReviewImages.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 4.0),
+                    child: Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          getReviewImages[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ));
+              }),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        const Row(
+          children: [
+            Text(
+              'Size: ${'Not Specified'}',
+              style: TextStyle(color: Colors.black38, fontSize: 12),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              'Color Family: ${'White'}',
+              style: TextStyle(color: Colors.black38, fontSize: 12),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        )
+      ],
     );
   }
 }
