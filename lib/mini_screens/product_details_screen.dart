@@ -1,12 +1,15 @@
 import 'dart:math';
 
 import 'package:firebase_provider/main_screens/home_page.dart';
+import 'package:firebase_provider/mini_screens/search_screen.dart';
+import 'package:firebase_provider/widgets/reviews_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic productDetails;
-  const ProductDetailsScreen({super.key, required this.productDetails});
+  final bool? fromSearchScreen;
+  const ProductDetailsScreen({super.key, required this.productDetails,  this.fromSearchScreen});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -21,12 +24,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const HomePage()));
+            widget.fromSearchScreen == true ?
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SearchScreen())) :
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        title: SizedBox(width: 200, child: Text(widget.productDetails['name'])),
+        title: SizedBox(width: 200, child: Text(widget.productDetails['name'], overflow: TextOverflow.ellipsis,)),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -84,9 +88,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.95,
+                              width: MediaQuery.of(context).size.width * 0.93,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
                                     widget.productDetails['name'],
@@ -139,67 +144,72 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
         ),
       ),
-      bottomSheet: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.store,
-                color: Colors.red,
-                size: 25,
-              )),
-          const SizedBox(
-            height: 20,
-            child: VerticalDivider(
-              color: Colors.grey,
-              width: 1,
+      bottomSheet: Container(
+        color: Colors.grey.shade200,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.store,
+                  color: Colors.red,
+                  size: 25,
+                )),
+            const SizedBox(
+              height: 20,
+              child: VerticalDivider(
+                color: Colors.grey,
+                width: 1,
+              ),
             ),
-          ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.chat,
-                color: Colors.red,
-                size: 25,
-              )),
-          Container(
-              width: MediaQuery.of(context).size.width * 0.3,
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 1,
-                  )
-                ],
-              ),
-              child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Buy now',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ))),
-          Container(
-              width: MediaQuery.of(context).size.width * 0.3,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 1,
-                  )
-                ],
-              ),
-              child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Add to Cart',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  )))
-        ],
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.chat,
+                  color: Colors.red,
+                  size: 25,
+                )),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 1,
+                    )
+                  ],
+                ),
+                child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Buy now',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ))),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 1,
+                    )
+                  ],
+                ),
+                child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Add to Cart',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    )))
+          ],
+        ),
       ),
     );
   }
@@ -412,122 +422,6 @@ class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
   }
 }
 
-class ReviewsItem extends StatelessWidget {
-  const ReviewsItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    List<String> getReviewImages = [
-      'assets/images/img1.jpg',
-      'assets/images/img2.png',
-      'assets/images/img3.jpg',
-      'assets/images/img1.jpg',
-      'assets/images/img2.png',
-      'assets/images/img3.jpg',
-    ];
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                RatingBar.builder(
-                  initialRating: 2,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 15,
-                  ignoreGestures: true,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {},
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const Text(
-                  'Farzan',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            const Text('5 months ago',
-                style: TextStyle(color: Colors.black38, fontSize: 14))
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          'Very good quality same jesa dekhaya tha wahi cheese bejhe hai very very pretty mujhe dar tha k size may chota na ho par abohat acha hai.',
-          style: TextStyle(color: Colors.black87, fontSize: 15),
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 80,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: getReviewImages.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
-                    child: Container(
-                      width: 70,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          getReviewImages[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ));
-              }),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Row(
-          children: [
-            Text(
-              'Size: ${'Not Specified'}',
-              style: TextStyle(color: Colors.black38, fontSize: 12),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              'Color Family: ${'White'}',
-              style: TextStyle(color: Colors.black38, fontSize: 12),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-          ],
-        )
-      ],
-    );
-  }
-}
-
 class PriceRowWidget extends StatelessWidget {
   const PriceRowWidget({
     super.key,
@@ -538,82 +432,85 @@ class PriceRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            const Text(
-              'Rs. ',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orange),
-            ),
-            Text(
-              (widget.productDetails['price'] / 3).toStringAsFixed(0),
-              style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orange),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Rs. ${widget.productDetails['price']}',
-              style: const TextStyle(
-                  decoration: TextDecoration.lineThrough,
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey),
-            ),
-            const SizedBox(
-              width: 3,
-            ),
-            Text(
-              (((widget.productDetails['price'] / 3) /
-                          (widget.productDetails['price']) *
-                          100) -
-                      100)
-                  .toStringAsFixed(0),
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey),
-            ),
-            const Text(
-              '%',
-              style: TextStyle(
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Text(
-              '122 Sold',
-              style: TextStyle(
-                  fontSize: 10,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey),
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.share,
-                  color: Colors.black,
-                  size: 15,
-                ))
-          ],
-        ),
-      ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width*0.95,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              const Text(
+                'Rs. ',
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange),
+              ),
+              Text(
+                (widget.productDetails['price'] / 3).toStringAsFixed(0),
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Rs. ${widget.productDetails['price']}',
+                style: const TextStyle(
+                    decoration: TextDecoration.lineThrough,
+                    fontSize: 12,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
+              ),
+              const SizedBox(
+                width: 3,
+              ),
+              Text(
+                (((widget.productDetails['price'] / 3) /
+                            (widget.productDetails['price']) *
+                            100) -
+                        100)
+                    .toStringAsFixed(0),
+                style: const TextStyle(
+                    fontSize: 12,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
+              ),
+              const Text(
+                '%',
+                style: TextStyle(
+                    fontSize: 12,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text(
+                '122 Sold',
+                style: TextStyle(
+                    fontSize: 10,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.share,
+                    color: Colors.black,
+                    size: 15,
+                  ))
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

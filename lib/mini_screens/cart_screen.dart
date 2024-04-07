@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:firebase_provider/providers/cart_provider.dart';
-import 'package:firebase_provider/main_screens/home_page.dart';
 import 'package:firebase_provider/models/product_model.dart';
+import 'package:firebase_provider/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  final bool? fromProductDetailsScreen;
+  const CartScreen({super.key, this.fromProductDetailsScreen});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -18,16 +19,9 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     List<Product> proList = context.read<CartProvider>().cartList;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: Text('Cart Screen'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
-          },
-        ),
-      ),
+      appBar:  MyAppBar(title: 'Cart Screen',  leadingIcon: widget.fromProductDetailsScreen == true ? Icon(Icons.arrow_back) :  null, onLeadingIconPressed: () {
+       Navigator.pop(context);
+      },),
       body: ListView(
         children: proList.map((e) {
           return Padding(

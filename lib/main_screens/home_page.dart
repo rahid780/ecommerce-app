@@ -1,3 +1,4 @@
+import 'package:firebase_provider/widgets/dummy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_provider/widgets/my_app_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -9,7 +10,6 @@ import 'package:firebase_provider/main_screens/electronics_screen.dart';
 import 'package:firebase_provider/main_screens/fruits_screen.dart';
 import 'package:firebase_provider/widgets/home_main_categories.dart';
 import 'package:firebase_provider/widgets/home_slider.dart';
-import 'package:firebase_provider/widgets/search_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
 
                       SizedBox(height: 10),
-                      MySearchBar(),
+                      DummySearchBar(),
                       SizedBox(height: 10),
                       MyHomeSliderWidget(),
                       SizedBox(height: 10),
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         color: Colors.orange,
-        backgroundColor: Colors.grey.shade200,
+        backgroundColor: Colors.transparent,
         items: const <Widget>[
           Icon(Icons.home, size: 30),
           Icon(Icons.category, size: 30),

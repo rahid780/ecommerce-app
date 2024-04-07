@@ -7,8 +7,9 @@ import 'package:badges/badges.dart' as badges;
 
 class ProductItem extends StatelessWidget {
   final dynamic productData;
+  final bool? fromSearchScreen;
 
-  const ProductItem({super.key, required this.productData});
+  const ProductItem({super.key, required this.productData,  this.fromSearchScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class ProductItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: GestureDetector(
                   onTap: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen( productDetails: productData,) ));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen( productDetails: productData,fromSearchScreen: fromSearchScreen,) ));
                 },
                   child: Image(image: NetworkImage(productData['image'],), fit: BoxFit.cover,)
                 ),

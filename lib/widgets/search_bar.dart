@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 
 
 class MySearchBar extends StatelessWidget {
-  const MySearchBar({super.key});
+ final TextEditingController controller;
+  
+  const MySearchBar({super.key,  required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return  Padding(
   padding: const EdgeInsets.all(8.0),
   child: Container(
+    width: MediaQuery.of(context).size.width*0.8,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       boxShadow: [
@@ -16,7 +19,7 @@ class MySearchBar extends StatelessWidget {
           color: Colors.grey.withOpacity(0.3),
           spreadRadius: 2,
           blurRadius: 2,
-          offset: const Offset(0, 2), // changes position of shadow
+          offset: const Offset(0, 2), 
         ),
       ],
     ),
