@@ -77,35 +77,51 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('products').snapshots(),
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('Something went wrong'),
-                    );
-                  }
+              child: _search.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'Enter a search query to find products',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    )
+                  : StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance.collection('products').snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return const Center(
+                            child: Text('Something went wrong'),
+                          );
+                        }
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
 
-                  final result = snapshot.data!.docs.where((doc) =>
-                      doc['name'].toString().toLowerCase().contains(_search.toLowerCase()));
+                        final result = snapshot.data!.docs.where((doc) =>
+                            doc['name'].toString().toLowerCase().contains(_search.toLowerCase()));
 
-                  return GridView(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1,
+                        if (result.isEmpty) {
+                          return Center(
+                            child: Text(
+                              'No products found for "$_search"',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          );
+                        }
+
+                        return GridView(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1,
+                          ),
+                          children: result.map((e) => ProductItem(productData: e, fromSearchScreen: true,)).toList(),
+                        );
+                      },
                     ),
-                    children: result.map((e) => ProductItem(productData: e, fromSearchScreen: true,)).toList(),
-                  );
-                },
-              ),
             ),
           ],
         ),

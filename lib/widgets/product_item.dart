@@ -36,8 +36,8 @@ class ProductItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 80,
-              height: 70,
+              width: fromSearchScreen == true ? 120 : 80,
+              height: fromSearchScreen == true ? 120 : 70,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: GestureDetector(
@@ -56,7 +56,7 @@ class ProductItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 60,
+                      width: fromSearchScreen == true ? 100 : 60,
                       child: Text(
                         productData['name'],
                         style: const TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold),
@@ -73,7 +73,7 @@ class ProductItem extends StatelessWidget {
                 context.watch<CartProvider>().cartList.any((element) => element.id == productData['id'])
                     ? badges.Badge(
                   badgeContent: const Icon(Icons.done_all, size: 10),
-                  position: badges.BadgePosition.topStart(top: -5, start: 5), // Adjust the position of the badge
+                  position: badges.BadgePosition.topStart(top: -5, start: 5), 
                   child: const Icon(Icons.add_shopping_cart, color: Colors.black, size: 20),
                 )
                     : GestureDetector(
@@ -99,3 +99,5 @@ class ProductItem extends StatelessWidget {
     );
   }
 }
+
+
