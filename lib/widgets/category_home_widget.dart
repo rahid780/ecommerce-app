@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 class CategoryWidget extends StatefulWidget {
   final String category;
-  final String headline;
+  final String title;
+  final String subtitle;
   final Widget nextScreen;
 
-  const CategoryWidget({super.key, required this.category, required this.headline, required this.nextScreen, });
+  const CategoryWidget({super.key, required this.category, required this.title, required this.nextScreen, required this.subtitle, });
 
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();
@@ -30,14 +31,14 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.category,
+                      widget.title,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w900),
                     ),
                     Text(
-                      widget.headline,
+                      widget.subtitle,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 10,
