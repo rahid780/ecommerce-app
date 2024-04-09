@@ -48,6 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ],
                       ),
                       child: TextField(
+                        autofocus: true,
                         controller: _searchController,
                         onChanged: (value) {
                           setState(() {

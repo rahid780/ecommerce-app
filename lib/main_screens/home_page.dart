@@ -1,3 +1,4 @@
+import 'package:firebase_provider/mini_screens/wishlist_screen.dart';
 import 'package:firebase_provider/widgets/dummy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_provider/widgets/my_app_bar.dart';
@@ -59,17 +60,14 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.color_lens),
               title: const Text('Color Themes'),
               onTap: () {
-                // Handle color themes action
               },
             ),
             ListTile(
               leading: const Icon(Icons.favorite),
               title: const Text('Wishlist'),
               onTap: () {
-                // Handle wishlist action
               },
             ),
-            // Add more list tiles for other actions
           ],
         ),
       ),
@@ -89,10 +87,10 @@ class _HomePageState extends State<HomePage> {
                 onLeadingIconPressed: () {
                   _scaffoldKey.currentState!.openDrawer();
                 },
-                actionIcon: const Icon(Icons.person),
+                actionIcon: const Icon(Icons.favorite),
                 onActionIconPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const WishlistScreen()),
                   );
                 },
               ),

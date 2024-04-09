@@ -14,11 +14,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
-        },
-        icon: const Icon(Icons.arrow_back),
-        ),
+        title: Text("Profile"),
+      ),
+      body: Center(
+        child: Text("Profile Screen"),
       ),
     );
   }
