@@ -108,13 +108,13 @@ class _HomePageState extends State<HomePage> {
                       MainCategories(
                         nextScreen: CategoriesScreen(),
                         category: 'Categories',
-                        headline: 'Choose for your best life.',
+                        headline: 'Choose for your better life.',
                       ),
                       SizedBox(height: 10),
                        SizedBox(height: 10),
                       CategoryWidget(
                         title: 'Hot Deals',
-                        subtitle: 'Uptp 30% off',
+                        subtitle: 'Upto 30% off',
                         category: 'Fruits',
                         nextScreen: FruitsScreen(),
                       ),
@@ -137,9 +137,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
+        height: 50,
         color: Colors.orange,
         backgroundColor: Colors.transparent,
-        items: const <Widget>[
+        items: const [
           Icon(Icons.home, size: 30),
           Icon(Icons.category, size: 30),
           Icon(Icons.shopping_cart, size: 30),

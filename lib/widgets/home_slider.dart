@@ -32,13 +32,17 @@ class _MyHomeSliderWidgetState extends State<MyHomeSliderWidget> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-        child: _slides.isEmpty
-            ? const CircularProgressIndicator()
-            : Container(
+        child: Container(
               width: MediaQuery.of(context).size.width,
               height: 250,
               color: Colors.grey.shade200,
-              child: Column(
+              child: _slides.isEmpty
+            ?  Container(
+              margin: EdgeInsets.symmetric(vertical: 100, horizontal: MediaQuery.of(context).size.width *0.4),
+              width: 50,
+              height: 50,
+              child: const CircularProgressIndicator())
+            :  Column(
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
