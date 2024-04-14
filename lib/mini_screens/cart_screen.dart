@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_provider/providers/cart_provider.dart';
 import 'package:firebase_provider/models/product_model.dart';
 import 'package:firebase_provider/widgets/my_app_bar.dart';
@@ -51,19 +52,13 @@ class _CartScreenState extends State<CartScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  bottomLeft: Radius.circular(20),
-                                ),
-                                child: SizedBox(
-                                  width: size * 0.2,
-                                  height: 0.2,
-                                  child: Image.network(
-                                    e.image,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )),
+                            SizedBox(
+                              width: size * 0.2,
+                              height:size* 0.15,
+                              child: FancyShimmerImage(
+                                imageUrl: e.image,
+                              ),
+                            ),
                             const SizedBox(width: 10),
                             SizedBox(
                               width: size * 0.67,

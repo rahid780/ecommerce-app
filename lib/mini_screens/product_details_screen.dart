@@ -19,8 +19,8 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-   var wishItemExist = context.read<WishProvider>().wishList.firstWhereOrNull((product) =>
-                          product.id == widget.productDetails['id']);
+    var wishItemExist = context.read<WishProvider>().wishList.firstWhereOrNull(
+        (product) => product.id == widget.productDetails['id']);
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
@@ -70,8 +70,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: 
-                     wishItemExist == null ? IconButton(
+                  child: wishItemExist == null
+                      ? IconButton(
                           onPressed: () {
                             setState(() {
                               context.read<WishProvider>().addWishList(
@@ -94,7 +94,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       : IconButton(
                           onPressed: () {
                             setState(() {
-                              context.read<WishProvider>().removeFromWishList(widget.productDetails['id']);
+                              context.read<WishProvider>().removeFromWishList(
+                                  widget.productDetails['id']);
                             });
                           },
                           icon: const Icon(

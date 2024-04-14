@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_provider/providers/cart_provider.dart';
 import 'package:firebase_provider/mini_screens/product_details_screen.dart';
