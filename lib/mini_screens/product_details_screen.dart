@@ -1,12 +1,16 @@
+import 'package:collection/collection.dart';
 import 'package:firebase_provider/main_screens/home_page.dart';
 import 'package:firebase_provider/mini_screens/search_screen.dart';
+import 'package:firebase_provider/providers/wish_provider.dart';
 import 'package:firebase_provider/widgets/ratings_and_reviews_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic productDetails;
   final bool? fromSearchScreen;
-  const ProductDetailsScreen({super.key, required this.productDetails,  this.fromSearchScreen});
+  const ProductDetailsScreen(
+      {super.key, required this.productDetails, this.fromSearchScreen});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -15,19 +19,30 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+   var wishItemExist = context.read<WishProvider>().wishList.firstWhereOrNull((product) =>
+                          product.id == widget.productDetails['id']);
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            widget.fromSearchScreen == true ?
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SearchScreen())) :
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
+            widget.fromSearchScreen == true
+                ? Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SearchScreen()))
+                : Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        title: SizedBox(width: 200, child: Text(widget.productDetails['name'], overflow: TextOverflow.ellipsis,)),
+        title: SizedBox(
+            width: 200,
+            child: Text(
+              widget.productDetails['name'],
+              overflow: TextOverflow.ellipsis,
+            )),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -55,13 +70,38 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite_border,
-                        color: Colors.orange,
-                        size: 25,
-                      )),
+                  child: 
+                     wishItemExist == null ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              context.read<WishProvider>().addWishList(
+                                    widget.productDetails['name'],
+                                    widget.productDetails['price'],
+                                    widget.productDetails['image'],
+                                    widget.productDetails['description'],
+                                    widget.productDetails['id'],
+                                    widget.productDetails['category'],
+                                    widget.productDetails['quantity'],
+                                    widget.productDetails['qty'],
+                                  );
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.favorite_border,
+                            color: Colors.orange,
+                            size: 25,
+                          ))
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              context.read<WishProvider>().removeFromWishList(widget.productDetails['id']);
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.orange,
+                            size: 25,
+                          )),
                 )
               ]),
               const SizedBox(
@@ -136,7 +176,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
               ),
-            const  RatingsAndReviewsWidget(),
+              const RatingsAndReviewsWidget(),
             ],
           ),
         ),
@@ -212,13 +252,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 }
 
-
-
-
-
-
-
-
 class PriceRowWidget extends StatelessWidget {
   const PriceRowWidget({
     super.key,
@@ -230,7 +263,7 @@ class PriceRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width*0.95,
+      width: MediaQuery.of(context).size.width * 0.95,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

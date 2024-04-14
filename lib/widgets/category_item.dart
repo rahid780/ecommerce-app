@@ -1,3 +1,4 @@
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_provider/main_screens/sub_category_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -51,12 +52,12 @@ class CategoryItem extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const SubCategoryScreen(fromMain: true,)));
                 },
-                child: Image.network(
-                  productData['image'],
-                  fit: BoxFit.cover,
-                  width: 100,
-                  height: 100,
-                ),
+                child: FancyShimmerImage(
+                    imageUrl: productData['image'],
+                    width: 100,
+                    height: 100,
+                  ),
+                
               ),
             ),
           ],

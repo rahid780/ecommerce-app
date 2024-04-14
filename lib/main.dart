@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_provider/providers/cart_provider.dart';
 import 'package:firebase_provider/main_screens/home_page.dart';
+import 'package:firebase_provider/providers/wish_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,11 +14,11 @@ void main() async {
         messagingSenderId: '297768110531',
         projectId: 'fir-provider-293f2'),
   );
-  runApp( const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
- const MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<CartProvider>(
           create: (_) => CartProvider(),
+        ),
+        ChangeNotifierProvider<WishProvider>(
+          create: (_) => WishProvider(),
         ),
       ],
       child: MaterialApp(
