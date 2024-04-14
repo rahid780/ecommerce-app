@@ -1,5 +1,7 @@
 import 'package:firebase_provider/mini_screens/wishlist_screen.dart';
+import 'package:firebase_provider/widgets/my_drawer.dart';
 import 'package:firebase_provider/widgets/dummy_search_bar.dart';
+import 'package:firebase_provider/widgets/products_list_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_provider/widgets/my_app_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -40,36 +42,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.orange,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.color_lens),
-              title: const Text('Color Themes'),
-              onTap: () {
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.favorite),
-              title: const Text('Wishlist'),
-              onTap: () {
-              },
-            ),
-          ],
-        ),
+      drawer:const Drawer(
+        child: MyDrawer()
       ),
       body: PageView(
         controller: _pageController,
@@ -125,6 +99,8 @@ class _HomePageState extends State<HomePage> {
                         category: 'Electronics',
                         nextScreen: ElectronicsScreen(),
                       ),
+                      SizedBox(height: 10),
+                      ProductsListHome()
                     ],
                   ),
                 ),

@@ -34,7 +34,7 @@ class _MyHomeSliderWidgetState extends State<MyHomeSliderWidget> {
         padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
         child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 250,
+              height: MediaQuery.of(context).size.width * 0.65,
               color: Colors.grey.shade200,
               child: _slides.isEmpty
             ?  Container(
@@ -46,7 +46,7 @@ class _MyHomeSliderWidgetState extends State<MyHomeSliderWidget> {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      height: 230,
+                      height: MediaQuery.of(context).size.width * 0.6,
                       child: CarouselSlider(
                         options: CarouselOptions(
                           aspectRatio: 16 / 9,
