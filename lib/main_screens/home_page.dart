@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                       MyHomeSliderWidget(),
                       SizedBox(height: 10),
                       MainCategories(
-                        nextScreen: CategoriesScreen(),
+                        nextScreen: CategoriesScreen(fromHome: false,),
                         category: 'Categories',
                         headline: 'Choose for your better life.',
                       ),
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          const CategoriesScreen(),
+          const CategoriesScreen(fromHome: true,),
           const CartScreen(),
           const ProfileScreen(),
         ],

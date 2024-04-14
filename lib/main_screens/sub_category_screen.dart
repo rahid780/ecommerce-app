@@ -1,5 +1,3 @@
-import 'package:firebase_provider/main_screens/categories_screen.dart';
-import 'package:firebase_provider/main_screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 class SubCategoryScreen extends StatelessWidget {
@@ -12,12 +10,7 @@ class SubCategoryScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => fromMain == true
-                        ? const HomePage()
-                        : const CategoriesScreen()));
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back),
         ),

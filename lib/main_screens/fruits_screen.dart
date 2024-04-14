@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_provider/main_screens/home_page.dart';
+import 'package:firebase_provider/widgets/my_app_bar.dart';
 import 'package:firebase_provider/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 class FruitsScreen extends StatefulWidget {
@@ -13,11 +13,9 @@ class _FruitsScreenState extends State<FruitsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        leading: IconButton(onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
-        }, icon: const Icon(Icons.arrow_back)),
+      appBar: MyAppBar(title: 'Fruits',
+      leadingIcon: const Icon(Icons.arrow_back),
+      onLeadingIconPressed: () => Navigator.pop(context),
       ),
       body: Container(
         color: Colors.grey.shade200,
@@ -26,13 +24,6 @@ class _FruitsScreenState extends State<FruitsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Fruits',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900),
-              ),
               const Text(
                 'Fresh and fast delivery',
                 style: TextStyle(

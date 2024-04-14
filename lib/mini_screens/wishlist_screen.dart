@@ -18,7 +18,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     List<Product> proList = context.read<WishProvider>().wishList;
     return Scaffold(
       backgroundColor: Colors.grey.shade100,

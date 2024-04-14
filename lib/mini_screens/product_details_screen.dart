@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:firebase_provider/main_screens/home_page.dart';
 import 'package:firebase_provider/mini_screens/search_screen.dart';
 import 'package:firebase_provider/providers/wish_provider.dart';
 import 'package:firebase_provider/widgets/ratings_and_reviews_widget.dart';
@@ -32,8 +31,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const SearchScreen()))
-                : Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
+                : Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back),
         ),

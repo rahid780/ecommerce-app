@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_provider/main_screens/home_page.dart';
+import 'package:firebase_provider/widgets/my_app_bar.dart';
 import 'package:firebase_provider/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +14,9 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        leading: IconButton(onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomePage()));
-        }, icon: const Icon(Icons.arrow_back)),
+      appBar: MyAppBar(title: 'Electronics',
+      leadingIcon: const Icon(Icons.arrow_back),
+      onLeadingIconPressed: () => Navigator.pop(context),
       ),
       body: Container(
         color: Colors.grey.shade200,
@@ -27,13 +25,6 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Electronics',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900),
-              ),
               const Text(
                 'Original and branded',
                 style: TextStyle(

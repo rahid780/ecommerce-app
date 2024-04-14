@@ -54,7 +54,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                       padding: const EdgeInsets.all(2.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => widget.nextScreen));
