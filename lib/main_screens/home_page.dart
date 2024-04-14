@@ -42,9 +42,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer:const Drawer(
-        child: MyDrawer()
-      ),
+      drawer: const Drawer(child: MyDrawer()),
       body: PageView(
         controller: _pageController,
         onPageChanged: (index) {
@@ -52,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
         },
-        children:  [
+        children: [
           Column(
             children: [
               MyAppBar(
@@ -64,7 +62,8 @@ class _HomePageState extends State<HomePage> {
                 actionIcon: const Icon(Icons.favorite),
                 onActionIconPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const WishlistScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const WishlistScreen()),
                   );
                 },
               ),
@@ -73,19 +72,20 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       SizedBox(height: 10),
                       DummySearchBar(),
                       SizedBox(height: 10),
                       MyHomeSliderWidget(),
                       SizedBox(height: 10),
                       MainCategories(
-                        nextScreen: CategoriesScreen(fromHome: false,),
+                        nextScreen: CategoriesScreen(
+                          fromHome: false,
+                        ),
                         category: 'Categories',
                         headline: 'Choose for your better life.',
                       ),
                       SizedBox(height: 10),
-                       SizedBox(height: 10),
+                      SizedBox(height: 10),
                       CategoryWidget(
                         title: 'Hot Deals',
                         subtitle: 'Upto 30% off',
@@ -107,7 +107,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          const CategoriesScreen(fromHome: true,),
+          const CategoriesScreen(
+            fromHome: true,
+          ),
           const CartScreen(),
           const ProfileScreen(),
         ],

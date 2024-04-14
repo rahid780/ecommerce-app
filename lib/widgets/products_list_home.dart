@@ -14,30 +14,32 @@ class ProductsListHome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          const Padding(
-             padding:  EdgeInsets.all(8.0),
-             child:  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 Text(
-                              'All Products',
-                              style:  TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            Text(
-                          'Search for your needs and compforts',
-                          style:  TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w900),
-                        ),
-               ],
-             ),
-           ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'All Products',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  Text(
+                    'Search for your needs and compforts',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900),
+                  ),
+                ],
+              ),
+            ),
             StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('products').snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection('products')
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -49,11 +51,13 @@ class ProductsListHome extends StatelessWidget {
                       child: Text(snapshot.error.toString()),
                     );
                   }
-                  List<QueryDocumentSnapshot<Object?>>? data = snapshot.data?.docs;
-            
+                  List<QueryDocumentSnapshot<Object?>>? data =
+                      snapshot.data?.docs;
+
                   return GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: data?.length ?? 0,

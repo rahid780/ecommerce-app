@@ -48,6 +48,11 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   collection: ^1.18.0
   fancy_shimmer_image: ^2.0.3
+  flutter_staggered_animations: ^1.1.1
+  image_picker: ^1.0.8
+  firebase_auth: ^4.2.5
+  firebase_storage: ^11.0.10
+  fluttertoast: ^8.2.2
   
 
 dev_dependencies:
