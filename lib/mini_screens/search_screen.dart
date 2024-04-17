@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   String _search = '';
 
   @override
@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()),);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomePage()),);
                     },
                     icon: const Icon(Icons.arrow_back),
                   ),

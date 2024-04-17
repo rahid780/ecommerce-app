@@ -54,8 +54,9 @@ class CategoryItem extends StatelessWidget {
                 },
                 child: FancyShimmerImage(
                     imageUrl: productData['image'],
-                    width: 100,
-                    height: 100,
+                    width: 90,
+                    height: 90,
+                    boxFit: BoxFit.cover,
                   ),
                 
               ),

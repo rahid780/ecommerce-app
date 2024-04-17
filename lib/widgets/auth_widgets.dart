@@ -6,8 +6,7 @@ class AuthMainButton extends StatelessWidget {
   final String mainButtonLable;
   final Function() onPressed;
   const AuthMainButton(
-      {Key? key, required this.mainButtonLable, required this.onPressed})
-      : super(key: key);
+      {super.key, required this.mainButtonLable, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class AuthMainButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Material(
         color: Colors.orange,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(5),
         child: MaterialButton(
           minWidth: double.infinity,
           onPressed: onPressed,
@@ -35,11 +34,11 @@ class HaveAccount extends StatelessWidget {
   final String actionLable;
   final Function() onPressed;
   const HaveAccount({
-    Key? key,
+    super.key,
     required this.haveAccount,
     required this.actionLable,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +67,7 @@ class AuthHeaderLable extends StatelessWidget {
   final String headerLable;
   final String subHeaderLable;
   const AuthHeaderLable(
-      {Key? key, required this.headerLable, required this.subHeaderLable})
-      : super(key: key);
+      {super.key, required this.headerLable, required this.subHeaderLable});
 
   @override
   Widget build(BuildContext context) {
@@ -119,13 +117,13 @@ class AuthHeaderLable extends StatelessWidget {
 var textFormDecoration = InputDecoration(
   labelText: 'Full Name',
   hintText: 'Enter your full name',
-  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
   enabledBorder: OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.orange, width: 1),
-      borderRadius: BorderRadius.circular(15)),
+      borderRadius: BorderRadius.circular(5)),
   focusedBorder: OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.deepOrangeAccent, width: 2),
-      borderRadius: BorderRadius.circular(15)),
+      borderRadius: BorderRadius.circular(5)),
 );
 
 extension EmailValidator on String {

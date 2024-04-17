@@ -39,6 +39,8 @@ dependencies:
   provider: ^6.1.2
   cloud_firestore: ^4.15.10
   firebase_core: ^2.27.2
+  firebase_auth: ^4.2.5
+  firebase_storage: ^11.7.2
   badges: ^3.1.2
   carousel_slider: ^4.2.1
   dots_indicator: ^3.0.0
@@ -48,11 +50,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   collection: ^1.18.0
   fancy_shimmer_image: ^2.0.3
-  flutter_staggered_animations: ^1.1.1
-  image_picker: ^1.0.8
-  firebase_auth: ^4.2.5
-  firebase_storage: ^11.0.10
+  image_picker: ^1.1.0
   fluttertoast: ^8.2.2
+  shared_preferences: ^2.2.3
   
 
 dev_dependencies:

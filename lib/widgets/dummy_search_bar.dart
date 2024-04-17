@@ -45,7 +45,7 @@ class DummySearchBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Row(
-                      children: const [
+                      children:  [
                         Icon(Icons.search, size: 20, color: Colors.grey),
                         SizedBox(width: 10),
                         Text(

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_provider/authentication_screens/sign_up.dart';
 import 'package:firebase_provider/providers/cart_provider.dart';
-import 'package:firebase_provider/main_screens/home_page.dart';
+import 'package:firebase_provider/providers/id_provider.dart';
 import 'package:firebase_provider/providers/wish_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<WishProvider>(
           create: (_) => WishProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => IdProvider(),
         ),
       ],
       child: MaterialApp(

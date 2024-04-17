@@ -2,7 +2,7 @@ import 'package:firebase_provider/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class WishProvider extends ChangeNotifier {
-  static List<Product> _wishList = [];
+  static final List<Product> _wishList = [];
 
   List<Product> get wishList {
     return _wishList;

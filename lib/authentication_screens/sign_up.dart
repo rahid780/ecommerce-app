@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
+import 'package:firebase_provider/authentication_screens/login.dart';
 import 'package:firebase_provider/widgets/snack_bar.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +19,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-late String profileImage;
+  late String profileImage;
   late String _uid;
   late String name;
   late String address;
@@ -45,9 +48,10 @@ late String profileImage;
   void _pickImageFromCamera() async {
     try {
       final pickedImage = await _picker.pickImage(
-          source: ImageSource.camera,
-          maxHeight: 600,
-          maxWidth: 600,);
+        source: ImageSource.camera,
+        maxHeight: 600,
+        maxWidth: 600,
+      );
       setState(() {
         _imageFile = pickedImage;
       });
@@ -58,9 +62,6 @@ late String profileImage;
       print(_pickedImageError);
     }
   }
-
-
-
 
   void _pickImageFromGallery() async {
     try {
@@ -87,46 +88,48 @@ late String profileImage;
 
     if (_formKey.currentState!.validate()) {
       if (_imageFile != null) {
-            try {
-              await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                  email: email, password: password);
-              //print('user saved to database');
+        try {
+          await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password);
+          print('user saved to database');
 
-              firebase_storage.Reference ref = firebase_storage
-                  .FirebaseStorage.instance
+          firebase_storage.Reference ref =
+              firebase_storage.FirebaseStorage.instanceFor(
+                      bucket: 'gs://fir-provider-293f2.appspot.com')
                   .ref('cust-images/$email.jpg');
-              await ref.putFile(File(_imageFile!.path));
-              profileImage = await ref.getDownloadURL();
+          await ref.putFile(File(_imageFile!.path));
+          profileImage = await ref.getDownloadURL();
 
-              // print('image saved to database');
-              _uid = FirebaseAuth.instance.currentUser!.uid;
-              await customers.doc(_uid).set({
-                'approved': false,
-                'name': name,
-                'email': email,
-                'profileImage': profileImage,
-                'phone': phone,
-                'address': address,
-                'cid': _uid,
-              });
-              //print('data saved to database');
+          print('image saved to database');
+          _uid = FirebaseAuth.instance.currentUser!.uid;
+          await customers.doc(_uid).set({
+            'approved': true,
+            'name': name,
+            'email': email,
+            'profileImage': profileImage,
+            'phone': phone,
+            'address': address,
+            'cid': _uid,
+          });
+          //print('data saved to database');
 
-              _formKey.currentState!.reset();
-              setState(() {
-                _imageFile == null;
-              });
+          _formKey.currentState!.reset();
+          setState(() {
+            _imageFile == null;
+          });
 
-              await Future.delayed(const Duration(microseconds: 100))
-                  .whenComplete(() => Navigator.pushReplacementNamed(
-                      context, '/customer_login'));
-            } on FirebaseAuthException catch (e) {
-              setState(() {
-                processing = false;
-              });
-              MyMessageHandler.showSnackBar(_scaffoldKey, e.toString());
-            }
-          } 
-       else {
+          await Future.delayed(const Duration(microseconds: 100)).whenComplete(
+              () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LoginScreen())));
+        } on FirebaseAuthException catch (e) {
+          setState(() {
+            processing = false;
+          });
+          MyMessageHandler.showSnackBar(_scaffoldKey, e.toString());
+        }
+      } else {
         setState(() {
           processing = false;
         });
@@ -289,7 +292,6 @@ late String profileImage;
                                   hintText: 'Enter your phone number'),
                             ),
                           ),
-                        
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: TextFormField(
@@ -377,8 +379,11 @@ late String profileImage;
                             haveAccount: 'already have an account?',
                             actionLable: 'log In',
                             onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                  context, '/customer_login');
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreen()));
                             },
                           ),
                           processing == true
