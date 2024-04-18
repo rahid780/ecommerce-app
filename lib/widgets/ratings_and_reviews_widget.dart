@@ -1,13 +1,15 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_provider/models/reviews_model.dart';
 import 'package:firebase_provider/widgets/reviews_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RatingsAndReviewsWidget extends StatefulWidget {
+  final String proId;
   const RatingsAndReviewsWidget({
-    super.key,
+    super.key, required this.proId,
   });
 
   @override
@@ -16,6 +18,9 @@ class RatingsAndReviewsWidget extends StatefulWidget {
 }
 
 class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
+  CollectionReference _ratingsAndReviews = FirebaseFirestore.instance.collection('product').doc().collection('reviews');
+
+
   List<String> poepleLoves = [
     'Love Design',
     'Product',
@@ -24,35 +29,49 @@ class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
     'Best Quality',
     'Excelent Product'
   ];
-  final List<Review> reviews = [
-    Review(
-      reviewerName: 'Faraz',
-      rating: 4.5,
-      reviewText:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      reviewTime: '3 months ago',
-      reviewImages: [
-      'assets/images/img2.png',
-      'assets/images/img3.jpg',
-      'assets/images/img1.jpg',
-      ],
-      size: 'Not specified',
-      colorFamily: 'white',
-    ),
-    Review(
-      reviewerName: 'Haris Khan',
-      rating: 3.5,
-      reviewText:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      reviewTime: '1 months ago',
-      reviewImages: [
-      'assets/images/img1.jpg',
-      'assets/images/img3.jpg',
-      ],
-      size: 'Not specified',
-      colorFamily: 'black',
-    ),
-  ];
+
+Future<List<Review>> getReviews ()async{
+
+QuerySnapshot querySnapshot = await _ratingsAndReviews.get();
+
+ List<Review> reviews = querySnapshot.docs
+          .map((doc) {
+            return Review(cName: doc['cname'], rating: doc['rating'], time: doc['time'], images: doc['images'], comment: doc['comment'], size: doc['size'], colorFamily: doc['colorFamily'],);
+          })
+          .toList();
+
+      return reviews;
+}
+
+  // final List<Review> reviews = [
+  //   Review(
+  //     cName: 'Faraz',
+  //     rating: 4.5,
+  //     comment:
+  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  //     time: '3 months ago',
+  //     images: [
+  //     'assets/images/img2.png',
+  //     'assets/images/img3.jpg',
+  //     'assets/images/img1.jpg',
+  //     ],
+  //     size: 'Not specified',
+  //     colorFamily: 'white',
+  //   ),
+  //   Review(
+  //     cName: 'Haris Khan',
+  //     rating: 3.5,
+  //     comment:
+  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  //     time: '1 months ago',
+  //     images: [
+  //     'assets/images/img1.jpg',
+  //     'assets/images/img3.jpg',
+  //     ],
+  //     size: 'Not specified',
+  //     colorFamily: 'black',
+  //   ),
+  // ];
 
   double rating = 4.5;
 
@@ -228,13 +247,31 @@ class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
                 height: 10,
               ),
               SizedBox(
-                height: 430,
-                child: ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return ReviewsItem(review: reviews[index]);
-                    }),
-              ),
+  height: 430,
+  child: StreamBuilder<QuerySnapshot>(
+    stream: FirebaseFirestore.instance
+        .collection('products')
+        .doc(widget.proId)
+        .collection('reviews')
+        .snapshots(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      if (!snapshot.hasData) {
+        return const Center(child: Text("No reviews available"));
+      }
+      var documents = snapshot.data!.docs;
+      return ListView.builder(
+        itemCount: documents.length,  
+        itemBuilder: (context, index) {
+          Review review = Review.fromFirestore(documents[index]);
+          return ReviewsItem(review: review);
+        },
+      );
+    },
+  ),
+),
             ],
           ),
         ),

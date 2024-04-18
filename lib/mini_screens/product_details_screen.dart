@@ -175,7 +175,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
               ),
-              const RatingsAndReviewsWidget(),
+               RatingsAndReviewsWidget( proId: widget.productDetails['proId'].toString(),),
             ],
           ),
         ),

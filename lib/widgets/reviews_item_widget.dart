@@ -1,6 +1,7 @@
 import 'package:firebase_provider/models/reviews_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 
 
 class ReviewsItem extends StatelessWidget {
@@ -34,7 +35,7 @@ class ReviewsItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  review.reviewerName,
+                  review.cName,
                   style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 14,
@@ -42,13 +43,13 @@ class ReviewsItem extends StatelessWidget {
                 ),
               ],
             ),
-            Text(review.reviewTime,
+            Text(DateFormat('yyyy-MM-dd – kk:mm').format(review.time.toDate()),
                 style: const TextStyle(color: Colors.black38, fontSize: 14))
           ],
         ),
         const SizedBox(height: 10),
         Text(
-          review.reviewText,
+          review.comment,
           style: const TextStyle(color: Colors.black87, fontSize: 15),
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
@@ -59,7 +60,7 @@ class ReviewsItem extends StatelessWidget {
           height: 80,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: review.reviewImages.length,
+              itemCount: review.images.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -73,7 +74,7 @@ class ReviewsItem extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        review.reviewImages[index],
+                        review.images[index],
                         fit: BoxFit.cover,
                       ),
                     ),
