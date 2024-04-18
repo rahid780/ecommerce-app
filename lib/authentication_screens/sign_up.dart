@@ -94,8 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           print('user saved to database');
 
           firebase_storage.Reference ref =
-              firebase_storage.FirebaseStorage.instanceFor(
-                      bucket: 'gs://fir-provider-293f2.appspot.com')
+              firebase_storage.FirebaseStorage.instance
                   .ref('cust-images/$email.jpg');
           await ref.putFile(File(_imageFile!.path));
           profileImage = await ref.getDownloadURL();

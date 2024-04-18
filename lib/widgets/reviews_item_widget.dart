@@ -12,6 +12,7 @@ class ReviewsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +74,7 @@ class ReviewsItem extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
+                      child: Image.network(
                         review.images[index],
                         fit: BoxFit.cover,
                       ),
@@ -95,6 +96,12 @@ class ReviewsItem extends StatelessWidget {
               style: const TextStyle(color: Colors.black38, fontSize: 12),
             ),
           ],
+        ),
+        const SizedBox(height: 10),
+        Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: const Divider(height: 0.1, color: Colors.black12,)),
         ),
         const SizedBox(height: 10),
       ],

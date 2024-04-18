@@ -18,7 +18,6 @@ class RatingsAndReviewsWidget extends StatefulWidget {
 }
 
 class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
-  CollectionReference _ratingsAndReviews = FirebaseFirestore.instance.collection('product').doc().collection('reviews');
 
 
   List<String> poepleLoves = [
@@ -30,48 +29,7 @@ class _RatingsAndReviewsWidgetState extends State<RatingsAndReviewsWidget> {
     'Excelent Product'
   ];
 
-Future<List<Review>> getReviews ()async{
 
-QuerySnapshot querySnapshot = await _ratingsAndReviews.get();
-
- List<Review> reviews = querySnapshot.docs
-          .map((doc) {
-            return Review(cName: doc['cname'], rating: doc['rating'], time: doc['time'], images: doc['images'], comment: doc['comment'], size: doc['size'], colorFamily: doc['colorFamily'],);
-          })
-          .toList();
-
-      return reviews;
-}
-
-  // final List<Review> reviews = [
-  //   Review(
-  //     cName: 'Faraz',
-  //     rating: 4.5,
-  //     comment:
-  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  //     time: '3 months ago',
-  //     images: [
-  //     'assets/images/img2.png',
-  //     'assets/images/img3.jpg',
-  //     'assets/images/img1.jpg',
-  //     ],
-  //     size: 'Not specified',
-  //     colorFamily: 'white',
-  //   ),
-  //   Review(
-  //     cName: 'Haris Khan',
-  //     rating: 3.5,
-  //     comment:
-  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  //     time: '1 months ago',
-  //     images: [
-  //     'assets/images/img1.jpg',
-  //     'assets/images/img3.jpg',
-  //     ],
-  //     size: 'Not specified',
-  //     colorFamily: 'black',
-  //   ),
-  // ];
 
   double rating = 4.5;
 
@@ -262,8 +220,15 @@ QuerySnapshot querySnapshot = await _ratingsAndReviews.get();
         return const Center(child: Text("No reviews available"));
       }
       var documents = snapshot.data!.docs;
+
+      int displayCount = 2; 
+      if (documents.length < displayCount) {
+        displayCount = documents.length; 
+      }
+
       return ListView.builder(
-        itemCount: documents.length,  
+        shrinkWrap: true,
+        itemCount: displayCount,  
         itemBuilder: (context, index) {
           Review review = Review.fromFirestore(documents[index]);
           return ReviewsItem(review: review);
